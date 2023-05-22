@@ -9,17 +9,17 @@ export const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const onLeaveFeedback = event => {
-    const btnName = event.target.name;
-    switch (btnName) {
+  const onLeaveFeedback = option => {
+    // const btnName = event.target.name;
+    switch (option) {
       case 'good':
-        setGood(good + 1);
+        setGood(prevState => prevState + 1);
         break;
       case 'neutral':
-        setNeutral(neutral + 1);
+        setNeutral(prevState => prevState + 1);
         break;
       case 'bad':
-        setBad(bad + 1);
+        setBad(prevState => prevState + 1);
         break;
       default:
         setGood(0);
@@ -34,18 +34,14 @@ export const App = () => {
   };
 
   const countPositiveFeedbackPercentage = () => {
-    const positiveFeedbackPercentage = Math.round(
-      (good / countTotalFeedback()) * 100
-    );
-
-    return positiveFeedbackPercentage;
+    return Math.round((good / countTotalFeedback()) * 100);
   };
 
   return (
     <>
       <Section title="Please leave feedback">
         <FeedbackOptions
-         options={['good', 'neutral', 'bad']}
+          options={['good', 'neutral', 'bad']}
           onLeaveFeedback={onLeaveFeedback}
         />
       </Section>
